@@ -37,7 +37,6 @@ CDataReceiveApp theApp;
 
 
 // CDataReceiveApp 初始化
-
 BOOL CDataReceiveApp::InitInstance()
 {
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
@@ -75,9 +74,10 @@ BOOL CDataReceiveApp::InitInstance()
 	// 更改用于存储设置的注册表项
 	// TODO: 应适当修改该字符串，
 	// 例如修改为公司或组织名
-	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
+	SetRegistryKey(_T("802哲学家"));
 
 	CDataReceiveDlg dlg;
+
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
