@@ -202,8 +202,14 @@ DWORD WINAPI Thread_Listen(LPVOID params) {
 		strcat(buf, "\0");
 		CString str(buf);
 		//CString str = L"WTF";
+		if (buf[0] == 'C') {
+			p->GetDlgItem(IDC_SENSOR)->SetWindowTextW((LPCTSTR)str);
+		}
+		else
+		{
+			p->GetDlgItem(IDC_FIRE)->SetWindowTextW((LPCTSTR)str);
+		}
 		
-		p->GetDlgItem(IDC_SENSOR)->SetWindowTextW((LPCTSTR)str);
 		
 	}
 
