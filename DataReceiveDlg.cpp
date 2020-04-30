@@ -110,10 +110,6 @@ BOOL CDataReceiveDlg::OnInitDialog()
 	// TODO: 在此添加额外的初始化代码
 	p = this;
 	
-	//初始化地址编辑框
-	CString str = L"112.74.89.58";
-	GetDlgItem(IDC_IPADDRESS)->SetWindowTextW(str);
-
 	//初始化套接字
 	if (!AfxSocketInit()) {
 		AfxMessageBox(IDP_SOCKETS_INIT_FAILED);
@@ -205,9 +201,12 @@ DWORD WINAPI Thread_Listen(LPVOID params) {
 		if (buf[0] == 'C') {
 			p->GetDlgItem(IDC_SENSOR)->SetWindowTextW((LPCTSTR)str);
 		}
-		else
+		else if(buf[0]=='n'||buf[0]=='f')
 		{
 			p->GetDlgItem(IDC_FIRE)->SetWindowTextW((LPCTSTR)str);
+		}
+		else if(buf[0]!='s'){
+			return 0;
 		}
 		
 		
@@ -225,6 +224,7 @@ DWORD WINAPI Thread_ACCEPT(LPVOID params) {
 		sktCli = accept(sktServ, (sockaddr*)&addr, &addrLen);
 		if (sktCli == INVALID_SOCKET) {
 			MessageBox(NULL, L"[client] accpet error ...\n", NULL, MB_OK);
+			return -1;
 		}
 		//MessageBox(NULL,L"[client] accept ...\n", L"connect success!",  MB_OK);
 		//创建线程
@@ -235,7 +235,7 @@ DWORD WINAPI Thread_ACCEPT(LPVOID params) {
 
 void CDataReceiveDlg::OnBnClickedStartcar() {
 	// TODO: 在此添加控件通知处理程序代码
-	MessageBox(L"click", MB_OK);
+	MessageBox(L"点击确定开始监听程序", MB_OK);
 	SOCKET sktServ = socket(AF_INET, SOCK_STREAM, 0);
 	struct sockaddr_in serv_addr;
 	serv_addr.sin_family = AF_INET;
