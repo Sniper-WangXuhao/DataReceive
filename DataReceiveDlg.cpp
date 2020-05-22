@@ -8,6 +8,7 @@
 #include "DataReceiveDlg.h"
 #include "afxdialogex.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -72,6 +73,7 @@ BEGIN_MESSAGE_MAP(CDataReceiveDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_EN_CHANGE(IDC_PORTEDIT, &CDataReceiveDlg::OnEnChangePortedit)
 	ON_BN_CLICKED(IDC_STARTCAR, &CDataReceiveDlg::OnBnClickedStartcar)
+	ON_STN_CLICKED(IDC_FIREPIC, &CDataReceiveDlg::OnStnClickedFirepic)
 END_MESSAGE_MAP()
 
 
@@ -110,7 +112,11 @@ BOOL CDataReceiveDlg::OnInitDialog()
 	// TODO: 在此添加额外的初始化代码
 	p = this;
 	
+	CStatic* a = (CStatic*)p->GetDlgItem(IDC_FIREPIC);
+	a->SetBitmap(NULL);
+	
 	//初始化套接字
+
 	if (!AfxSocketInit()) {
 		AfxMessageBox(IDP_SOCKETS_INIT_FAILED);
 	}
@@ -204,6 +210,12 @@ DWORD WINAPI Thread_Listen(LPVOID params) {
 		else if(buf[0]=='n'||buf[0]=='f')
 		{
 			p->GetDlgItem(IDC_FIRE)->SetWindowTextW((LPCTSTR)str);
+			if (buf[0] = 'f') {
+				CStatic* a = (CStatic*)p->GetDlgItem(IDC_FIREPIC);
+				CBitmap bitmap;
+				bitmap.LoadBitmap(IDB_BITMAP1);
+				a->SetBitmap(bitmap);
+			}
 		}
 		else if(buf[0]!='s'){
 			return 0;
@@ -253,3 +265,8 @@ void CDataReceiveDlg::OnBnClickedStartcar() {
 
 
 
+
+
+void CDataReceiveDlg::OnStnClickedFirepic() {
+	// TODO: 在此添加控件通知处理程序代码
+}

@@ -7,6 +7,7 @@
 #include "DataReceive.h"
 #include "DataReceiveDlg.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif

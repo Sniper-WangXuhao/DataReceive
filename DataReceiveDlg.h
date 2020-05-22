@@ -35,4 +35,5 @@ public:
 	
 	void OnBnClickedStartcar();
 	
+	afx_msg void OnStnClickedFirepic();
 };
